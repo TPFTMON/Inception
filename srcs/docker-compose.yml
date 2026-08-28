@@ -1,0 +1,19 @@
+services:
+  mariadb:
+
+
+  wordpress:
+
+
+  nginx:
+
+
+networks:
+  inception_net:
+    driver: bridge
+
+volumes:
+  mariadb_data:
+
+
+  wordpress_data:
