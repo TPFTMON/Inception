@@ -15,9 +15,31 @@ services:
       - .env
     restart: always
 
-  # wordpress:
+  mariadb:
+    container_name: mariadb
+    build:
+      context: requirements/mariadb
+    networks:
+      - inception_net
+    volumes:
+      - mariadb_data:/var/lib/mysql
+    env_file:
+      - .env
+    restart: always
 
-  # mariadb:
+  wordpress:
+    container_name: wordpress
+    build:
+      context: requirements/wordpress
+    depends_on:
+      - mariadb
+    networks:
+      - inception_net
+    volumes:
+      - wordpress_data:/var/www/html
+    env_file:
+      - .env
+    restart: always
 
 networks:
   inception_net:
@@ -29,4 +51,13 @@ volumes:
     driver_opts:
       type: none
       o: bind
-      device: /home/abaryshe/data/wordpress
+      # device: /home/abaryshe/data/wordpress
+      device: /home/TPFTMON/data/wordpress
+
+  mariadb_data:
+    driver: local
+    driver_opts:
+      type: none
+      o: bind
+      # device: /home/abaryshe/data/mariadb
+      device: /home/TPFTMON/data/mariadb
