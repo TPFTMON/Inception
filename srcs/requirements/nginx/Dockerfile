@@ -10,7 +10,8 @@ RUN apt-get update -y && \
 RUN mkdir -p /etc/nginx/ssl
 
 # Generate a self-signed SSL certificate
-RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=Auvergne-Rhone-Alpes/L=Lyon/O=42/OU=42/CN=wil.42.fr/UID=wil"
+# tpftmon = abaryshe
+RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=Auvergne-Rhone-Alpes/L=Lyon/O=42/OU=42/CN=tpftmon.42.fr/UID=tpftmon"
 
 # Copy the custom NGINX configuration file from the host to the container
 COPY conf/nginx.conf /etc/nginx/nginx.conf
