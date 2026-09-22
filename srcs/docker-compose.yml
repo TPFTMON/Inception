@@ -41,6 +41,18 @@ services:
       - .env
     restart: always
 
+# Bonuses:
+  adminer:
+    build: requirements/bonus/adminer
+    container_name: adminer
+    restart: always
+    ports:
+      - "8080:8080"
+    networks:
+      - inception_net
+    depends_on:
+      - mariadb
+
 networks:
   inception_net:
     driver: bridge
