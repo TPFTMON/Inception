@@ -1,0 +1,14 @@
+FROM debian:bookworm
+
+RUN apt-get update && apt-get install -y --no-install-recommends \
+    vsftpd \
+    && rm -rf /var/lib/apt/lists/*
+
+COPY conf/vsftpd.conf /etc/vsftpd.conf
+COPY tools/setup.sh /tmp/setup.sh
+
+RUN chmod +x /tmp/setup.sh
+
+EXPOSE 21 21100-21110
+
+ENTRYPOINT ["/tmp/setup.sh"]
