@@ -63,6 +63,20 @@ services:
     networks:
       - inception_net
 
+  cadvisor:
+    build: requirements/bonus/cadvisor
+    container_name: cadvisor
+    restart: always
+    ports:
+      - "8082:8080"
+    volumes:
+      - /:/rootfs:ro
+      - /var/run:/var/run:ro
+      - /sys:/sys:ro
+      - /var/lib/docker/:/var/lib/docker:ro
+    networks:
+      - inception_net
+
   # ftp:
   #   build: requirements/bonus/ftp
   #   container_name: ftp
