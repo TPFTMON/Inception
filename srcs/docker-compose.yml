@@ -54,22 +54,22 @@ services:
     depends_on:
       - mariadb
 
-  ftp:
-    build: requirements/bonus/ftp
-    container_name: ftp
-    restart: always
-    environment:
-      FTP_USER: ${FTP_USER}
-      FTP_PASSWORD: ${FTP_PASSWORD}
-    volumes:
-      - wordpress_data:/var/www/html
-    ports:
-      - "21:21"
-      - "21100-21110:21100-21110"
-    networks:
-      - inception_net
-    depends_on:
-      - wordpress
+  # ftp:
+  #   build: requirements/bonus/ftp
+  #   container_name: ftp
+  #   restart: always
+  #   environment:
+  #     FTP_USER: ${FTP_USER}
+  #     FTP_PASSWORD: ${FTP_PASSWORD}
+  #   volumes:
+  #     - wordpress_data:/var/www/html
+  #   ports:
+  #     - "21:21"
+  #     - "21100-21110:21100-21110"
+  #   networks:
+  #     - inception_net
+  #   depends_on:
+  #     - wordpress
 
   # redis:
   #   container_name: redis
