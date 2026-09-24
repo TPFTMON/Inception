@@ -34,6 +34,17 @@ if [ ! -f /var/www/html/wp-config.php ]; then
         --role=author \
         --allow-root \
         --path=/var/www/html
+
+    # # Configure Redis Object Cache constants inside wp-config.php
+    # wp config set WP_REDIS_HOST redis --allow-root --path=/var/www/html
+    # wp config set WP_REDIS_PORT 6379 --raw --allow-root --path=/var/www/html
+    # wp config set WP_REDIS_TIMEOUT 1 --raw --allow-root --path=/var/www/html
+    # wp config set WP_REDIS_READ_TIMEOUT 1 --raw --allow-root --path=/var/www/html
+    # wp config set WP_REDIS_DATABASE 0 --raw --allow-root --path=/var/www/html
+
+    # # Install, activate, and enable the Redis Object Cache plugin
+    # wp plugin install redis-cache --activate --allow-root --path=/var/www/html
+    # wp redis enable --allow-root --path=/var/www/html
 fi
 
 # Run PHP-FPM in foreground (PID 1)
