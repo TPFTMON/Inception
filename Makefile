@@ -1,6 +1,7 @@
 NAME = inception
 COMPOSE = srcs/docker-compose.yml
 DATA_DIR = /home/TPFTMON/data
+# DATA_DIR = /home/abaryshe/data
 
 all: build
 
