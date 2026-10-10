@@ -4,11 +4,11 @@ services:
     container_name: nginx
     build:
       context: requirements/nginx
-      dockerfile: Dockerfile
-    ports:
-      - "443:443"
+      # dockerfile: Dockerfile
     networks:
       - inception_net
+    ports:
+      - "443:443"
     volumes:
       - wordpress_data:/var/www/html
     env_file:
@@ -45,55 +45,55 @@ services:
 
 # Bonuses:
   adminer:
-    build: requirements/bonus/adminer
     container_name: adminer
-    restart: always
-    ports:
-      - "8080:8080"
-    networks:
-      - inception_net
+    build: requirements/bonus/adminer
     depends_on:
       - mariadb
-
-  static-site:
-    build: requirements/bonus/static-site
-    container_name: static-site
-    restart: always
-    ports:
-      - "8081:8081"
     networks:
       - inception_net
+    ports:
+      - "8080:8080"
+    restart: always
+
+  static-site:
+    container_name: static-site
+    build: requirements/bonus/static-site
+    networks:
+      - inception_net
+    ports:
+      - "8081:8081"
+    restart: always
 
   cadvisor:
-    build: requirements/bonus/cadvisor
     container_name: cadvisor
-    restart: always
+    build: requirements/bonus/cadvisor
+    networks:
+      - inception_net
     ports:
       - "8082:8080"
     volumes:
-      - /:/rootfs:ro
-      - /var/run:/var/run:ro
-      - /sys:/sys:ro
-      - /var/lib/docker/:/var/lib/docker:ro
-    networks:
-      - inception_net
-
-  ftp:
-    build: requirements/bonus/ftp
-    container_name: ftp
+      - /:/rootfs:ro # Provides access to the host root filesystem structure.
+      - /var/run:/var/run:ro # Allows cAdvisor to communicate with /var/run/docker.sock to inspect container metadata.
+      - /sys:/sys:ro # Provides access to Linux cgroups (control groups) and sysfs, where the kernel logs resource consumption for each container.
+      - /var/lib/docker/:/var/lib/docker:ro # Allows cAdvisor to inspect Docker's local storage drivers and disk space usage per image/container.
     restart: always
-    environment:
-      FTP_USER: ${FTP_USER}
-      FTP_PASSWORD: ${FTP_PASSWORD}
-    volumes:
-      - wordpress_data:/var/www/html
-    ports:
-      - "21:21"
-      - "21100-21110:21100-21110"
-    networks:
-      - inception_net
-    depends_on:
-      - wordpress
+
+  # ftp:
+  #   build: requirements/bonus/ftp
+  #   container_name: ftp
+  #   restart: always
+  #   environment:
+  #     FTP_USER: ${FTP_USER}
+  #     FTP_PASSWORD: ${FTP_PASSWORD}
+  #   volumes:
+  #     - wordpress_data:/var/www/html
+  #   ports:
+  #     - "21:21"
+  #     - "21100-21110:21100-21110"
+  #   networks:
+  #     - inception_net
+  #   depends_on:
+  #     - wordpress
 
   # redis:
   #   container_name: redis
