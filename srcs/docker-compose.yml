@@ -33,7 +33,6 @@ services:
       context: requirements/wordpress
     depends_on:
       - mariadb
-      # - redis
     networks:
       - inception_net
     volumes:
@@ -77,30 +76,6 @@ services:
       - /sys:/sys:ro # Provides access to Linux cgroups (control groups) and sysfs, where the kernel logs resource consumption for each container.
       - /var/lib/docker/:/var/lib/docker:ro # Allows cAdvisor to inspect Docker's local storage drivers and disk space usage per image/container.
     restart: always
-
-  # ftp:
-  #   build: requirements/bonus/ftp
-  #   container_name: ftp
-  #   restart: always
-  #   environment:
-  #     FTP_USER: ${FTP_USER}
-  #     FTP_PASSWORD: ${FTP_PASSWORD}
-  #   volumes:
-  #     - wordpress_data:/var/www/html
-  #   ports:
-  #     - "21:21"
-  #     - "21100-21110:21100-21110"
-  #   networks:
-  #     - inception_net
-  #   depends_on:
-  #     - wordpress
-
-  # redis:
-  #   container_name: redis
-  #   build: requirements/bonus/redis
-  #   restart: always
-  #   networks:
-  #     - inception_net
 
 
 networks:
